@@ -20,8 +20,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-@WebServlet("/api/json/app/getSpese")
-public class GetSpeseController extends HttpServlet {
+@WebServlet("/api/json/app/getStorico")
+public class GetStoricoController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Connection connection = null;
 
@@ -56,7 +56,7 @@ public class GetSpeseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        resp.getWriter().println("Invalid action for method POST and path api/json/app/getSpese");
+        resp.getWriter().println("Invalid action for method POST and path api/json/app/getStorico");
     }
 
     @Override
