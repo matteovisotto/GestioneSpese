@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="GestioneSpese:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/GestioneSpese_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="GestioneSpese/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="GestioneSpese" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="mysql-connector-java-8.0.19" />
+          <element id="library" level="project" name="gson-2.8.6" />
+          <element id="library" level="project" name="commons-lang3-3.3.1" />
+          <element id="library" level="project" name="argon2-jvm-2.7" />
+          <element id="library" level="project" name="org.thymeleaf:thymeleaf:3.0.4.RELEASE" />
+          <element id="library" level="project" name="attoparser-2.0.3.RELEASE" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
