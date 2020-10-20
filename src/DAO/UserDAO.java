@@ -81,7 +81,7 @@ public class UserDAO {
             statement.setString(2, surname);
             statement.setString(3, StringEscapeUtils.escapeJava(username));
             statement.setString(4, hash);
-            statement.setString(4, salt);
+            statement.setString(5, salt);
             statement.executeUpdate();
         }
     }
