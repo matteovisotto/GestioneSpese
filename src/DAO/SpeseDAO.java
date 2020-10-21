@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class SpeseDAO {
-    private Connection connection;
+    private final Connection connection;
 
     public SpeseDAO(Connection connection){
         this.connection = connection;
@@ -48,6 +48,16 @@ public class SpeseDAO {
             spese.add(spesa);
         }
         return spese;
+    }
+
+    public void addSpesa(String description, Date date, float value, int userId) throws SQLException {
+        String sql = "INSERT INTO spese (description, date, value, userId) VALUES (?,?,?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1,description);
+        preparedStatement.setDate(2, java.sql.Date.valueOf(date.toString()));
+        preparedStatement.setFloat(3, value);
+        preparedStatement.setInt(4, userId);
+        preparedStatement.executeUpdate();
     }
 
     private boolean intToBool(int value){
