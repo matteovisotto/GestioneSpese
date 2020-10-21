@@ -215,25 +215,7 @@
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script>
-  var saldaConto = document.getElementById("saldaConto");
-  var saldaContoText = document.getElementById("saldaContoText");
-saldaConto.onclick = function () {
-  //Call API and set all transaction to payed=1
-}
-saldaConto.onmouseover = function () {
-  saldaConto.className = "card border-left-warning shadow h-100 py-2";
-  saldaContoText.className = "text-xs font-weight-bold text-warning text-uppercase mb-1";
-}
-
-saldaConto.onmouseout = function () {
-  saldaConto.className = "card border-left-success shadow h-100 py-2";
-  saldaContoText.className = "text-xs font-weight-bold text-success text-uppercase mb-1";
-}
-
-
-
-</script>
+<script src="js/manager.js"></script>
 
 </body>
 
