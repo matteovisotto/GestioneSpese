@@ -244,22 +244,25 @@
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <form id="addForm">
+      <form id="addForm" enctype="multipart/form-data">
       <div class="modal-body">
+        <div class="row my-2"><div class="col-12">
+          <div class="alert alert-danger" hidden="hidden" id="addModalError">Errore di esempio</div>
+        </div></div>
         <div class="row">
           <div class="col-12">
             <label>Descrizione</label>
-            <input type="text" class="form-control" name="description" />
+            <input type="text" class="form-control" name="description" required="required"/>
           </div>
         </div>
           <div class="row my-2">
             <div class="col-lg-6 col-md-6 col-sm-12">
               <label>Data</label>
-              <input type="date" class="form-control" name="date" />
+              <input type="date" class="form-control" name="dateValue" required="required"/>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
               <label>Importo</label>
-              <input type="text" class="form-control" name="value" />
+              <input type="text" class="form-control" name="value" required="required"/>
             </div>
           </div>
       </div>

@@ -23,6 +23,7 @@
 
         const addSpesaModalButton = document.getElementById("addModalButton");
         const addSpesaModal = document.getElementById("addModal");
+        const addSpesaModalError = document.getElementById("addModalError");
 
         this.start = function() {
             saldoButton = new SaldoButton(saldaConto, saldaContoText);
@@ -35,7 +36,7 @@
             storicoTable = new StoricoTable(storicoTableBody);
             addButton = new AggiungiSpesaButton(addSpesaButton, addSpesaButtonText);
             addButton.init();
-            addModal = new AddModal(addSpesaModal, addSpesaModalButton);
+            addModal = new AddModal(addSpesaModal, addSpesaModalButton, addSpesaModalError);
             addModal.init();
 
         }
@@ -160,7 +161,7 @@
 
                 var value = data.value;
                 cell3 = document.createElement("td");
-                cell3.textContent = value;
+                cell3.textContent = value.toFixed(2);
                 saldo += value;
                 if(value>0){
                     cell3.style.color = "#c40000";
@@ -226,7 +227,7 @@
 
                 var value = data.value;
                 cell3 = document.createElement("td");
-                cell3.textContent = value;
+                cell3.textContent = value.toFixed(2);
                 if(value>0){
                     cell3.style.color = "#c40000";
                 } else {
@@ -251,7 +252,7 @@
             var self = this;
             this.button.style.cursor = "pointer";
             this.button.onclick = function () {
-                $("#addModal").modal();
+                addModal.show();
             }
             this.button.onmouseover = function () {
                 self.button.className = "card border-left-warning shadow h-100 py-2";
@@ -266,11 +267,14 @@
 
     }
 
-    function AddModal(_modal, _targetButton){
+    function AddModal(_modal, _targetButton, _error){
         this.modal = _modal;
         this.saveButton = _targetButton;
+        this.error = _error;
 
         this.init = function () {
+            this.error.hidden = "hidden";
+            this.error.innerText = "";
             this.saveButton.addEventListener("click", (e) => {
                 const form = e.target.closest("form");
                 if(form.checkValidity()){
@@ -281,15 +285,10 @@
                             switch (req.status) {
                                 case 200:
                                     self.close();
+                                    pageManager.updateSpese();
                                     break;
-                                case 400: // bad request
-                                    console.log(message);
-                                    break;
-                                case 401: // unauthorized
-                                    console.log(message);
-                                    break;
-                                case 500: // server error
-                                    console.log(message);
+                                default: // server error
+                                    self.showError(req.statusText);
                                     break;
                             }
                         }
@@ -302,6 +301,19 @@
 
         this.close = function (){
             $(this.modal).modal("hide");
+        }
+        this.show = function (){
+            $(this.modal).modal();
+        }
+
+        this.showError = function (error){
+            this.error.innerText = error;
+            this.error.hidden = "";
+        }
+
+        this.hideError = function (){
+            this.error.innerText = "";
+            this.error.hidden = "hidden";
         }
     }
 
