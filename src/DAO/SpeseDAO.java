@@ -60,6 +60,13 @@ public class SpeseDAO {
         preparedStatement.executeUpdate();
     }
 
+    public void clearUnpayed(int userId) throws SQLException {
+        String sql = "UPDATE spese SET payed=1 WHERE payed=0 AND userId = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.executeUpdate();
+    }
+
     private boolean intToBool(int value){
         return value > 0;
     }
