@@ -24,27 +24,20 @@
 
 <!-- Page Wrapper -->
 <div id="wrapper">
-
-
-
   <!-- Content Wrapper -->
   <div id="content-wrapper" class="d-flex flex-column">
-
     <!-- Main Content -->
     <div id="content">
 
       <!-- Topbar -->
       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
-
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small" data-th-text="${user.name} + ' ' + ${user.surname}">Username</span>
-              <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              <img class="img-profile rounded-circle" src="img/user-alt-512.png"/>
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -65,11 +58,9 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+          <h1 class="h3 mb-0 text-gray-800">Gestione spese</h1>
+          <a href="#" class=" btn btn-sm btn-primary shadow-sm" id="reportButton"><i class="fas fa-download fa-sm text-white-50"></i>Genera report</a>
         </div>
-
-        <!-- Content Row -->
 
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -93,7 +84,7 @@
                                 <div class="row no-gutters align-items-center">
                                   <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Totale spese</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="totalSpese">215,000€</span></div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="totalSpese">0,00</span></div>
                                   </div>
                                   <div class="col-auto">
                                     <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
@@ -104,8 +95,25 @@
                           </div>
                         </div>
 
+                        <div class="row my-2">
+                          <div class="col-12">
+                            <div class="card border-left-danger shadow h-100 py-2" id="aggiungiSpesa">
+                              <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                  <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1" id="aggiungiSpesaText">Aggiungi spesa</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                  </div>
+                                  <div class="col-auto">
+                                    <i class="fas fa-plus fa-2x text-gray-300"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-                        <div class="row">
+                        <div class="row my-2">
                           <div class="col-12">
                             <div class="card border-left-success shadow h-100 py-2" id="saldaConto">
                               <div class="card-body">
@@ -152,10 +160,53 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane fade" id="nav-storico" role="tabpanel" aria-labelledby="nav-storico-tab">Prova 2</div>
-        </div>
-      </div>
+          <div class="tab-pane fade" id="nav-storico" role="tabpanel" aria-labelledby="nav-storico-tab">
+            <div class="row my-2 mx-2">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-4 col-md-12 col-sm-12">
 
+                        <div class="row my-2">
+                          <div class="col-12">
+
+                          </div>
+                        </div>
+
+
+
+
+                      </div>
+
+                      <div class="col-lg-8 col-md-12 col-sm-12 ">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="storicoTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                              <th>Descrizione</th>
+                              <th>Data</th>
+                              <th>Importo</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="storicoTableBody">
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
       <!-- /.container-fluid -->
 
     </div>
@@ -215,6 +266,12 @@
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
+<script data-th-inline="javascript">
+  /*<![CDATA[*/
+  var servletContext = /*[[@{/}]]*/ '';
+  /*]]>*/
+</script>
+<script src="js/utils.js"></script>
 <script src="js/manager.js"></script>
 
 </body>

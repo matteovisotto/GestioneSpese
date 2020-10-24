@@ -42,7 +42,7 @@ public class GetStoricoController extends HttpServlet {
         SpeseDAO speseDAO = new SpeseDAO(connection);
         ArrayList<Spesa> spese = null;
         try {
-            spese = speseDAO.getSpese(user.getId());
+            spese = speseDAO.getStorico(user.getId());
         }catch (SQLException e){
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "SQL Error");
             return;
