@@ -1,7 +1,7 @@
 (function () {
 
     var pageManager = new PageManager();
-    var saldoButton, reportButton, tabMenu, speseTable, storicoTable, addButton;
+    var saldoButton, reportButton, tabMenu, speseTable, storicoTable, addButton, addModal;
 
     window.addEventListener("load", () => {
             pageManager.start();
@@ -21,6 +21,9 @@
         const addSpesaButton = document.getElementById("aggiungiSpesa");
         const addSpesaButtonText = document.getElementById("aggiungiSpesaText");
 
+        const addSpesaModalButton = document.getElementById("addModalButton");
+        const addSpesaModal = document.getElementById("addModal");
+
         this.start = function() {
             saldoButton = new SaldoButton(saldaConto, saldaContoText);
             saldoButton.init();
@@ -32,6 +35,9 @@
             storicoTable = new StoricoTable(storicoTableBody);
             addButton = new AggiungiSpesaButton(addSpesaButton, addSpesaButtonText);
             addButton.init();
+            addModal = new AddModal(addSpesaModal, addSpesaModalButton);
+            addModal.init();
+
         }
 
         this.updateSpese = function() {
@@ -118,7 +124,7 @@
 
         this.load = function() {
             const self = this;
-            makeCall("GET", servletContext+"/api/json/app/getSpese", null, function (req){
+            makeCall("GET", servletContext+"api/json/app/getSpese", null, function (req){
                 if (req.readyState === XMLHttpRequest.DONE) {
                     switch (req.status) {
                         case 200:
@@ -184,7 +190,7 @@
 
         this.load = function() {
             var self = this;
-            makeCall("GET", servletContext+"/api/json/app/getStorico", null, function (req){
+            makeCall("GET", servletContext+"api/json/app/getStorico", null, function (req){
                 if (req.readyState === XMLHttpRequest.DONE) {
                     var message = req.responseText;
                     switch (req.status) {
@@ -245,7 +251,7 @@
             var self = this;
             this.button.style.cursor = "pointer";
             this.button.onclick = function () {
-                //Call API and set all transaction to payed=1
+                $("#addModal").modal();
             }
             this.button.onmouseover = function () {
                 self.button.className = "card border-left-warning shadow h-100 py-2";
@@ -258,6 +264,45 @@
             }
         }
 
+    }
+
+    function AddModal(_modal, _targetButton){
+        this.modal = _modal;
+        this.saveButton = _targetButton;
+
+        this.init = function () {
+            this.saveButton.addEventListener("click", (e) => {
+                const form = e.target.closest("form");
+                if(form.checkValidity()){
+                    var self = this;
+                    makeCall("POST", servletContext+"api/json/app/addSpesa", form, function (req) {
+                        if (req.readyState === XMLHttpRequest.DONE) {
+                            var message = req.responseText;
+                            switch (req.status) {
+                                case 200:
+                                    self.close();
+                                    break;
+                                case 400: // bad request
+                                    console.log(message);
+                                    break;
+                                case 401: // unauthorized
+                                    console.log(message);
+                                    break;
+                                case 500: // server error
+                                    console.log(message);
+                                    break;
+                            }
+                        }
+                    }, true);
+                } else {
+                    form.reportValidity();
+                }
+            });
+        }
+
+        this.close = function (){
+            $(this.modal).modal("hide");
+        }
     }
 
 })();
