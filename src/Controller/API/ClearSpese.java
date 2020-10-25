@@ -3,10 +3,10 @@ package Controller.API;
 import Beans.User;
 import DAO.SpeseDAO;
 import Utilities.ConnectionHandler;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-@WebServlet("/api/json/app/addSpesa")
-@MultipartConfig
-public class AddSpesaController extends HttpServlet {
+@WebServlet("/api/json/app/clearSpese")
+public class ClearSpese extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Connection connection = null;
 
@@ -42,21 +38,20 @@ public class AddSpesaController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String action = StringEscapeUtils.escapeJava(req.getParameter("action"));
+        if(action == null || action.isEmpty() || !action.equals("clear")){
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
+            return;
+        }
+
         SpeseDAO speseDAO = new SpeseDAO(connection);
         User user = (User) req.getSession().getAttribute("user");
         try{
-            String description = req.getParameter("description");
-            Date date = simpleDateFormat.parse(req.getParameter("dateValue"));
-            float value = Float.parseFloat(req.getParameter("value"));
-            speseDAO.addSpesa(description, date, value, user.getId());
-        } catch (ParseException e){
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-        } catch (SQLException e){
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-            e.printStackTrace();
+            speseDAO.clearUnpayed(user.getId());
+        }catch (SQLException e){
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
+            return;
         }
-
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
