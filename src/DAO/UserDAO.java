@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class UserDAO {
@@ -23,7 +22,7 @@ public class UserDAO {
         String query = "SELECT salt FROM users WHERE username = ?";
         try (PreparedStatement pstatement = con.prepareStatement(query)) {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
-            try (ResultSet result = pstatement.executeQuery();) {
+            try (ResultSet result = pstatement.executeQuery()) {
                 if (!result.isBeforeFirst()) throw new NoSuchElementException();
                 else {
                     result.next();
@@ -35,9 +34,9 @@ public class UserDAO {
     }
     private String getUserSalt(int userId) throws SQLException, NoSuchElementException {
         String query = "SELECT salt FROM users WHERE id = ?";
-        try (PreparedStatement pstatement = con.prepareStatement(query);) {
+        try (PreparedStatement pstatement = con.prepareStatement(query)) {
             pstatement.setInt(1, userId);
-            try (ResultSet result = pstatement.executeQuery();) {
+            try (ResultSet result = pstatement.executeQuery()) {
                 if (!result.isBeforeFirst()) throw new NoSuchElementException();
                 else {
                     result.next();
@@ -52,10 +51,10 @@ public class UserDAO {
         String salt = getUserSalt(username);
         String query = "SELECT  * FROM users WHERE username = ? AND password = ?";
         String hash = Crypto.pwHash(password,salt.getBytes(StandardCharsets.UTF_8));
-        try (PreparedStatement pstatement = con.prepareStatement(query);) {
+        try (PreparedStatement pstatement = con.prepareStatement(query)) {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
             pstatement.setString(2, hash);
-            try (ResultSet result = pstatement.executeQuery();) {
+            try (ResultSet result = pstatement.executeQuery()) {
                 if (!result.isBeforeFirst()) // no results, credential check failed
                     throw new NoSuchElementException();
                 else {
@@ -86,23 +85,23 @@ public class UserDAO {
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isUsernameFree(String username) throws SQLException {
         String query = "SELECT 1 FROM users WHERE username= ?";
-        try (PreparedStatement pstatement = con.prepareStatement(query);) {
+        try (PreparedStatement pstatement = con.prepareStatement(query)) {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
-            try (ResultSet result = pstatement.executeQuery();) {
-                if (!result.isBeforeFirst()) // no results, credential check failed
-                    return true;
-                return false;
+            try (ResultSet result = pstatement.executeQuery()) {
+                // no results, credential check failed
+                return !result.isBeforeFirst();
             }
         }
     }
 
     public boolean existsUser(int id) throws SQLException{
         String query = "SELECT username FROM users WHERE id = ?";
-        try (PreparedStatement pstatement = con.prepareStatement(query);) {
+        try (PreparedStatement pstatement = con.prepareStatement(query)) {
             pstatement.setInt(1, id);
-            try (ResultSet result = pstatement.executeQuery();) {
+            try (ResultSet result = pstatement.executeQuery()) {
                 return result.isBeforeFirst();
             }
 

@@ -36,11 +36,11 @@ public class RegisterAPIController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = null;
-        String password = null;
-        String password_cnf = null;
-        String name = null;
-        String surname = null;
+        String username;
+        String password;
+        String password_cnf;
+        String name;
+        String surname;
         username = StringEscapeUtils.escapeJava(req.getParameter("username"));
         password = StringEscapeUtils.escapeJava(req.getParameter("password"));
         password_cnf = StringEscapeUtils.escapeJava(req.getParameter("password_cnf"));

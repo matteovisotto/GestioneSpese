@@ -53,8 +53,8 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = null;
-        String password = null;
+        String username;
+        String password;
 
         username = StringEscapeUtils.escapeJava(req.getParameter("username"));
         password = StringEscapeUtils.escapeJava(req.getParameter("password"));
@@ -65,7 +65,7 @@ public class LoginController extends HttpServlet {
             return;
         }
         UserDAO usr = new UserDAO(connection);
-        User u = null;
+        User u;
         try {
             u = usr.checkCredentials(username, password);
         }
@@ -90,7 +90,7 @@ public class LoginController extends HttpServlet {
         super.destroy();
         try {
             ConnectionHandler.closeConnection(connection);
-        } catch (SQLException sqle) {
+        } catch (SQLException ignored) {
         }
     }
 }

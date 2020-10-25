@@ -3,10 +3,8 @@ package Controller.API;
 import Beans.Spesa;
 import Beans.User;
 import DAO.SpeseDAO;
-import DAO.UserDAO;
 import Utilities.ConnectionHandler;
 import com.google.gson.Gson;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
@@ -18,7 +16,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 @WebServlet("/api/json/app/getStorico")
 public class GetStoricoController extends HttpServlet {
@@ -40,7 +37,7 @@ public class GetStoricoController extends HttpServlet {
         User user = (User) req.getSession().getAttribute("user");
         Gson gson = new Gson();
         SpeseDAO speseDAO = new SpeseDAO(connection);
-        ArrayList<Spesa> spese = null;
+        ArrayList<Spesa> spese;
         try {
             spese = speseDAO.getStorico(user.getId());
         }catch (SQLException e){

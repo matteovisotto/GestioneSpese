@@ -45,8 +45,8 @@ public class LoginAPIController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = null;
-        String password = null;
+        String username;
+        String password;
 
         username = StringEscapeUtils.escapeJava(req.getParameter("username"));
         password = StringEscapeUtils.escapeJava(req.getParameter("password"));

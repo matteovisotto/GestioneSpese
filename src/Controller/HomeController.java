@@ -1,9 +1,7 @@
 package Controller;
 
 import Beans.User;
-import DAO.UserDAO;
 import Utilities.ConnectionHandler;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -19,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.NoSuchElementException;
 
 @WebServlet("/home")
 public class HomeController extends HttpServlet {
@@ -58,7 +55,7 @@ public class HomeController extends HttpServlet {
         super.destroy();
         try {
             ConnectionHandler.closeConnection(connection);
-        } catch (SQLException sqle) {
+        } catch (SQLException ignored) {
         }
     }
 }

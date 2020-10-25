@@ -1,7 +1,5 @@
 package Beans;
 
-import DAO.SpeseDAO;
-
 import java.util.Date;
 
 public class Spesa {
