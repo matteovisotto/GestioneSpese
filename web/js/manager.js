@@ -70,7 +70,25 @@
             var self = this;
             this.button.style.cursor = "pointer";
             this.button.onclick = function () {
-                //Call API and set all transaction to payed=1
+                const self = this;
+                postData(servletContext+"api/json/app/clearSpese", "action=clear", function (req){
+                    if (req.readyState === XMLHttpRequest.DONE) {
+                        switch (req.status) {
+                            case 200:
+                                pageManager.update();
+                                break;
+                            case 400: // bad request
+                                console.log(req.responseText);
+                                break;
+                            case 401: // unauthorized
+                                window.location.href = servletContext+"/login";
+                                break;
+                            case 500:
+                                console.log(req.responseText);
+                                break;
+                        }
+                    }
+                });
             }
             this.button.onmouseover = function () {
                 self.button.className = "card border-left-warning shadow h-100 py-2";
@@ -235,10 +253,6 @@
                 }
                 row.appendChild(cell3);
 
-                cell4 = document.createElement("td");
-                cell4.textContent = "";
-                row.appendChild(cell4);
-
                 self.tableBody.appendChild(row);
             });
         }
@@ -285,10 +299,11 @@
                             switch (req.status) {
                                 case 200:
                                     self.close();
+                                    self.hideError();
                                     pageManager.updateSpese();
                                     break;
                                 default: // server error
-                                    self.showError(req.statusText);
+                                    self.showError(req.status + " - Si è verificato un errore");
                                     break;
                             }
                         }

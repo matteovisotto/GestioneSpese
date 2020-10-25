@@ -13,3 +13,17 @@ function makeCall(method, url, formElement, cback, reset = true) {
         formElement.reset();
     }
 }
+
+function postData(url, data, cback) {
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function (){
+        cback(req)
+    };
+    req.open("POST", url);
+    req.setRequestHeader('Content-Type', "application/x-www-form-urlencoded");
+    if(data == null){
+        req.send();
+    } else {
+        req.send(data);
+    }
+}

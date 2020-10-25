@@ -14,6 +14,7 @@
           <element id="library" level="project" name="argon2-jvm-2.7" />
           <element id="library" level="project" name="org.thymeleaf:thymeleaf:3.0.4.RELEASE" />
           <element id="library" level="project" name="attoparser-2.0.3.RELEASE" />
+          <element id="library" level="project" name="com.itextpdf:itextpdf:5.5.13" />
         </element>
       </element>
     </root>

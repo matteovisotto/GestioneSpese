@@ -48,7 +48,7 @@ public class AddSpesaController extends HttpServlet {
         try{
             String description = req.getParameter("description");
             Date date = simpleDateFormat.parse(req.getParameter("dateValue"));
-            float value = Float.parseFloat(req.getParameter("value"));
+            float value = Float.parseFloat(req.getParameter("value").replace(',', '.'));
             speseDAO.addSpesa(description, date, value, user.getId());
         } catch (ParseException e){
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
