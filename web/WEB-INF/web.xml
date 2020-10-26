@@ -6,15 +6,15 @@
 
     <context-param>
         <param-name>dbUrl</param-name>
-        <param-value>jdbc:mysql://192.168.1.121:3306/GestioneSpese?serverTimezone=Europe/Berlin</param-value>
+        <param-value>jdbc:mysql://localhost:3306/dbname</param-value>
     </context-param>
     <context-param>
         <param-name>dbUser</param-name>
-        <param-value>matmacsystem</param-value>
+        <param-value></param-value>
     </context-param>
     <context-param>
         <param-name>dbPassword</param-name>
-        <param-value>Jeremy1998</param-value>
+        <param-value></param-value>
     </context-param>
     <context-param>
         <param-name>dbDriver</param-name>
