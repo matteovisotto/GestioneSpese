@@ -5,6 +5,7 @@ import Beans.User;
 import DAO.SpeseDAO;
 import Utilities.ConnectionHandler;
 import Utilities.GeneratePDF;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -36,19 +37,39 @@ public class ReportGeneratorController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/pdf;charset=UTF-8");
 
-        resp.addHeader("Content-Disposition", "inline; filename=" + "report_GestioneSpese.pdf");
-        ServletOutputStream out = resp.getOutputStream();
-        User user = (User) req.getSession().getAttribute("user");
+        String reportType;
+
+        reportType = StringEscapeUtils.escapeJava(req.getParameter("type"));
+
+        if(reportType == null || reportType.isEmpty()){
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid parameter");
+            return;
+        }
+
         SpeseDAO speseDAO = new SpeseDAO(connection);
         ArrayList<Spesa> spese;
+        User user = (User) req.getSession().getAttribute("user");
         try {
-            spese = speseDAO.getSpese(user.getId());
+            if(reportType.equals("storico")){
+                spese = speseDAO.getStorico(user.getId());
+            } else if(reportType.equals("spese")){
+                spese = speseDAO.getSpese(user.getId());
+            } else {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid argument");
+                return;
+            }
         }catch (SQLException e){
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
             return;
         }
+
+        resp.setContentType("application/pdf;charset=UTF-8");
+        resp.addHeader("Content-Disposition", "inline; filename=" + "report_GestioneSpese.pdf");
+        ServletOutputStream out = resp.getOutputStream();
+
+
+
 
         ByteArrayOutputStream baos = GeneratePDF.getPdfFile(spese);
         baos.writeTo(out);

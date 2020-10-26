@@ -105,9 +105,6 @@
     function ReportButton(_button){
         this.button = _button;
         this.init = function () {
-            this.button.onclick = function () {
-
-            }
         }
 
         this.show = function () {
@@ -127,10 +124,10 @@
 
         this.init = function () {
             this.firstTab.onclick = function () {
-                reportButton.show();
+                reportButton.button.href=servletContext+"home/reportGenerator?type=spese";
             }
             this.secondTab.onclick = function () {
-                reportButton.hide();
+                reportButton.button.href=servletContext+"home/reportGenerator?type=storico";
             }
         }
     }
