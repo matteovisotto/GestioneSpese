@@ -47,6 +47,7 @@ public class SpeseDAO {
             spesa.setStatus(payed);
             spese.add(spesa);
         }
+        preparedStatement.close();
         return spese;
     }
 
@@ -58,6 +59,7 @@ public class SpeseDAO {
         preparedStatement.setFloat(3, value);
         preparedStatement.setInt(4, userId);
         preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 
     public void clearUnpayed(int userId) throws SQLException {
@@ -65,6 +67,7 @@ public class SpeseDAO {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, userId);
         preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 
     private boolean intToBool(int value){

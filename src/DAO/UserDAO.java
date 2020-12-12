@@ -26,6 +26,7 @@ public class UserDAO {
                 if (!result.isBeforeFirst()) throw new NoSuchElementException();
                 else {
                     result.next();
+                    pstatement.close();
                     return result.getString("salt");
                 }
             }
@@ -40,8 +41,11 @@ public class UserDAO {
                 if (!result.isBeforeFirst()) throw new NoSuchElementException();
                 else {
                     result.next();
+                    pstatement.close();
                     return result.getString("salt");
                 }
+            }finally {
+                pstatement.close();
             }
 
         }
@@ -64,8 +68,11 @@ public class UserDAO {
                     user.setUsername(StringEscapeUtils.unescapeJava(result.getString("username")));
                     user.setName(result.getString("nome"));
                     user.setSurname(result.getString("cognome"));
+                    pstatement.close();
                     return user;
                 }
+            } finally {
+                pstatement.close();
             }
         }
     }
@@ -82,6 +89,7 @@ public class UserDAO {
             statement.setString(4, hash);
             statement.setString(5, salt);
             statement.executeUpdate();
+            statement.close();
         }
     }
 
@@ -92,6 +100,7 @@ public class UserDAO {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
             try (ResultSet result = pstatement.executeQuery()) {
                 // no results, credential check failed
+                pstatement.close();
                 return !result.isBeforeFirst();
             }
         }
@@ -102,6 +111,7 @@ public class UserDAO {
         try (PreparedStatement pstatement = con.prepareStatement(query)) {
             pstatement.setInt(1, id);
             try (ResultSet result = pstatement.executeQuery()) {
+                pstatement.close();
                 return result.isBeforeFirst();
             }
 
