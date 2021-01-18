@@ -72,7 +72,7 @@ public class RegisterController extends HttpServlet {
             }
             userDAO.addUser(name, surname,username, password);
         } catch (SQLException e){
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to save user");
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to save user " + e.getLocalizedMessage());
             return;
         }
         resp.sendRedirect(getServletContext().getContextPath()+"/login");

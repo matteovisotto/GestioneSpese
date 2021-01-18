@@ -70,7 +70,7 @@ public class LoginController extends HttpServlet {
             u = usr.checkCredentials(username, password);
         }
         catch (SQLException e){
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unable to perform query");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unable to perform query: " + e.getLocalizedMessage());
             return;
         }
         catch (NoSuchElementException e){

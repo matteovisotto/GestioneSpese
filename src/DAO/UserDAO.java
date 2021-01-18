@@ -26,8 +26,9 @@ public class UserDAO {
                 if (!result.isBeforeFirst()) throw new NoSuchElementException();
                 else {
                     result.next();
+                    String salt = result.getString("salt");
                     pstatement.close();
-                    return result.getString("salt");
+                    return salt;
                 }
             }
 
@@ -41,8 +42,9 @@ public class UserDAO {
                 if (!result.isBeforeFirst()) throw new NoSuchElementException();
                 else {
                     result.next();
+                    String salt = result.getString("salt");
                     pstatement.close();
-                    return result.getString("salt");
+                    return salt;
                 }
             }finally {
                 pstatement.close();
@@ -77,6 +79,28 @@ public class UserDAO {
         }
     }
 
+    public User ssoLogin(String ssoUserId) throws SQLException, NoSuchElementException {
+        String query = "SELECT u.id, u.nome, u.cognome, u.username FROM users AS u JOIN aunica AS a ON u.id=a.localId WHERE a.ssoId=? ";
+        try (PreparedStatement pstatement = con.prepareStatement(query)) {
+            pstatement.setString(1, ssoUserId);
+            try (ResultSet result = pstatement.executeQuery()) {
+                if (!result.isBeforeFirst()) // no results, credential check failed
+                    throw new NoSuchElementException();
+                else {
+                    result.next();
+                    User user = new User();
+                    user.setId(result.getInt("id"));
+                    user.setUsername(result.getString("username"));
+                    user.setName(result.getString("nome"));
+                    user.setSurname(result.getString("cognome"));
+                    pstatement.close();
+                    return user;
+                }
+            } finally {
+                pstatement.close();
+            }
+        }
+    }
 
     public void addUser(String name, String surname, String username, String password) throws SQLException {
         String query = "INSERT INTO users (nome, cognome, username, password, salt) VALUES (?, ?, ?, ?, ?)";
@@ -100,8 +124,10 @@ public class UserDAO {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
             try (ResultSet result = pstatement.executeQuery()) {
                 // no results, credential check failed
+                boolean resultBool = !result.isBeforeFirst();
                 pstatement.close();
-                return !result.isBeforeFirst();
+                return resultBool;
+
             }
         }
     }
@@ -111,8 +137,9 @@ public class UserDAO {
         try (PreparedStatement pstatement = con.prepareStatement(query)) {
             pstatement.setInt(1, id);
             try (ResultSet result = pstatement.executeQuery()) {
+                boolean resultBool = result.isBeforeFirst();
                 pstatement.close();
-                return result.isBeforeFirst();
+                return resultBool;
             }
 
         }
