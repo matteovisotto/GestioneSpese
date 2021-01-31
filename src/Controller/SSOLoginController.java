@@ -64,6 +64,7 @@ public class SSOLoginController extends HttpServlet {
                 }
                 String path = getServletContext().getContextPath();
                 req.getSession().setAttribute("user", user);
+                req.getSession().setAttribute("isSSO", true);
                 String target = "/home";
                 path = path + target;
                 resp.sendRedirect(path);

@@ -21,7 +21,12 @@ public class LogoutController extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session != null) {
+            Object isSSO = session.getAttribute("isSSO");
             session.invalidate();
+            if(isSSO!=null && ((boolean)isSSO)){
+                response.sendRedirect("https://aunica.matmacsystem.it/logout.php");
+                return;
+            }
         }
         String path = getServletContext().getContextPath() + "/login";
         response.sendRedirect(path);
