@@ -117,6 +117,10 @@ public class UserDAO {
         }
     }
 
+    public void addSSOUser(String ssoUserID, String name, String surname, String username, String password) throws  SQLException {
+
+    }
+
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isUsernameFree(String username) throws SQLException {
         String query = "SELECT 1 FROM users WHERE username= ?";

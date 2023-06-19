@@ -23,11 +23,7 @@ public class ClearSpese extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        try{
-            connection = ConnectionHandler.getConnection(getServletContext());
-        } catch (UnavailableException e){
-            e.printStackTrace();
-        }
+
     }
 
     @Override
@@ -38,6 +34,13 @@ public class ClearSpese extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        try{
+            connection = ConnectionHandler.getConnection(getServletContext());
+        } catch (UnavailableException e){
+            e.printStackTrace();
+        }
+
         String action = StringEscapeUtils.escapeJava(req.getParameter("action"));
         if(action == null || action.isEmpty() || !action.equals("clear")){
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");

@@ -1,0 +1,32 @@
+<component name="libraryTable">
+  <library name="onelogin.java.saml" type="repository">
+    <properties maven-id="com.onelogin:java-saml:2.8.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/java-saml-2.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/java-saml-core-2.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.32.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/joda-time-2.10.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.12.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xmlsec-2.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/woodstox-core-5.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/stax2-api-4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.xml.bind-api-2.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.activation-api-1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.15.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/java-saml-2.8.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/java-saml-core-2.8.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.32-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/joda-time-2.10.6-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.12.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xmlsec-2.2.3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/woodstox-core-5.2.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/stax2-api-4.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.xml.bind-api-2.3.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.activation-api-1.2.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.15-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

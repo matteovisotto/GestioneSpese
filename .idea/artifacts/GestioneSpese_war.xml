@@ -3,6 +3,11 @@
     <output-path>$PROJECT_DIR$/out/artifacts/GestioneSpese_war</output-path>
     <root id="archive" name="GestioneSpese_war.war">
       <element id="artifact" artifact-name="GestioneSpese:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="onelogin.java.saml" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

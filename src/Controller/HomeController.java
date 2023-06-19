@@ -21,17 +21,12 @@ import java.sql.SQLException;
 @WebServlet("/home")
 public class HomeController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private Connection connection = null;
     private TemplateEngine templateEngine;
 
     @Override
     public void init() throws ServletException {
         ServletContext context = getServletContext();
-        try{
-            connection = ConnectionHandler.getConnection(context);
-        } catch (UnavailableException e){
-            e.printStackTrace();
-        }
+
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(context);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         this.templateEngine = new TemplateEngine();
@@ -53,9 +48,5 @@ public class HomeController extends HttpServlet {
     @Override
     public void destroy() {
         super.destroy();
-        try {
-            ConnectionHandler.closeConnection(connection);
-        } catch (SQLException ignored) {
-        }
     }
 }

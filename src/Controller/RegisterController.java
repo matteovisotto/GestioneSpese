@@ -28,11 +28,7 @@ public class RegisterController extends HttpServlet {
     private TemplateEngine templateEngine;
     @Override
     public void init() throws ServletException {
-        try{
-            connection = ConnectionHandler.getConnection(getServletContext());
-        } catch (UnavailableException e) {
-            throw new UnavailableException("Can't load database driver");
-        }
+
 
         ServletContext servletContext = getServletContext();
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
@@ -50,6 +46,13 @@ public class RegisterController extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        try{
+            connection = ConnectionHandler.getConnection(getServletContext());
+        } catch (UnavailableException e) {
+            throw new UnavailableException("Can't load database driver");
+        }
+
         String name = StringEscapeUtils.escapeJava(req.getParameter("name"));
         String surname = StringEscapeUtils.escapeJava(req.getParameter("surname"));
         String username = StringEscapeUtils.escapeJava(req.getParameter("username"));

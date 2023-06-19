@@ -27,11 +27,7 @@ public class AddSpesaController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        try{
-            connection = ConnectionHandler.getConnection(getServletContext());
-        } catch (UnavailableException e){
-            e.printStackTrace();
-        }
+
     }
 
     @Override
@@ -42,6 +38,13 @@ public class AddSpesaController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        try{
+            connection = ConnectionHandler.getConnection(getServletContext());
+        } catch (UnavailableException e){
+            e.printStackTrace();
+        }
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SpeseDAO speseDAO = new SpeseDAO(connection);
         User user = (User) req.getSession().getAttribute("user");

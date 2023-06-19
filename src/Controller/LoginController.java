@@ -53,6 +53,13 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        try{
+            connection = ConnectionHandler.getConnection(getServletContext());
+        } catch (UnavailableException e){
+            e.printStackTrace();
+        }
+
         String username;
         String password;
 

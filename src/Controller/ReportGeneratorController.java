@@ -28,15 +28,17 @@ public class ReportGeneratorController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         try{
             connection = ConnectionHandler.getConnection(getServletContext());
         } catch (UnavailableException e){
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String reportType;
 
